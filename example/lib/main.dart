@@ -23,6 +23,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    _flutterScreenshotDetectionPlugin.onDetect().listen((event) {
+      print("screenshot event");
+      setState(() {
+        _platformVersion = "Screenshot taken in $_platformVersion";
+      });
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

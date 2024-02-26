@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_screenshot_detection_method_channel.dart';
@@ -25,5 +27,13 @@ abstract class FlutterScreenshotDetectionPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<bool?> startDetection () {
+    throw UnimplementedError('startDetection() has not been implemented.');
+  }
+
+  Stream<bool?> onDetect () {
+    throw UnimplementedError('onDetect() has not been implemented.');
   }
 }
