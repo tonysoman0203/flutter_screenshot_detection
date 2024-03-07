@@ -36,17 +36,22 @@ class FlutterScreenshotDetectionPlugin: FlutterPlugin, MethodCallHandler, Activi
         "startDetection" -> {
           Logger.shared.debug("FlutterScreenshotDetectionPlugin startDetection")
           /// register Android Detector Callback
-          activity?.let {
-            if (eventChannel == null && screenshotCallbackController == null) {
-              Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel screenshotCallbackController $screenshotCallbackController")
-              eventChannel = EventChannel(binaryMessenger, "detectScreenShotEvent")
-              Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel setup")
-              screenshotCallbackController = ScreenshotCallbackController(activity = it)
-              eventChannel!!.setStreamHandler(screenshotCallbackController)
-              Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel setStreamHandler")
-              result.success(true)
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            activity?.let {
+              if (eventChannel == null && screenshotCallbackController == null) {
+                Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel screenshotCallbackController $screenshotCallbackController")
+                eventChannel = EventChannel(binaryMessenger, "detectScreenShotEvent")
+                Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel setup")
+                screenshotCallbackController = ScreenshotCallbackController(activity = it)
+                eventChannel!!.setStreamHandler(screenshotCallbackController)
+                Logger.shared.debug("FlutterScreenshotDetectionPlugin eventChannel $eventChannel setStreamHandler")
+                result.success(true)
+              }
             }
+          } else{
+            result.error("999", "cannot handle ANDROID 14 or below", null)
           }
+
         }
         "stopDetection" -> {
           /// destroy Android detector Callback
