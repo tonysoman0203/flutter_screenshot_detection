@@ -27,9 +27,9 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 android {
-//    if (project.android.hasProperty("namespace")) {
-//        namespace 'com.tonysoman.flutter_screenshot_detection'
-//    }
+   if (project.android.hasProperty("namespace")) {
+       namespace 'com.tonysoman.flutter_screenshot_detection'
+   }
 
     compileSdk 34
 
